@@ -1,32 +1,3 @@
-{{-- <!DOCTYPE html>
-<html>
-<head>
-    <title>Rapport des visites</title>
-    <style>
-        
-    </style>
-</head>
-<body>
-    <h1>Rapport des visites</h1>
-    <p>Nombre total de visites : {{ $visitsCount }}</p>
-    <table>
-        <thead>
-            <tr>
-                <th>ID Utilisateur</th>
-                <th>Date de la visite</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($visits as $visit)
-            <tr>
-                <td>{{ $visit->user_id }}</td>
-                <td>{{ $visit->visited_at }}</td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-</body>
-</html> --}}
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,7 +41,7 @@
         <tbody>
             @foreach($visits as $visit)
             <tr>
-                <td>{{ $visit->user_id }}</td>
+                <td>{{ $visit->user_id ? $visit->user_id : "visiteur" }}</td>
                 <td>{{ $visit->visited_at }}</td>
             </tr>
             @endforeach

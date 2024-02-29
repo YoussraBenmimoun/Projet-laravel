@@ -18,7 +18,7 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        $recipes=Recipe::latest()->paginate(5);
+        $recipes=Recipe::latest()->paginate(10);
         $categories=Category::all();
         return view('recipes.index',compact('recipes','categories'));
     }

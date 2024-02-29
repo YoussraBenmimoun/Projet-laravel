@@ -2,9 +2,11 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UserControllerTest extends TestCase
 {
@@ -17,24 +19,52 @@ class UserControllerTest extends TestCase
 
     //     $response->assertStatus(200);
     // }
+    
     public function testIndex()
     {
+        
+        User::create([
+            'name' => 'Allali Ali',
+            'email' => 'ali@example.com',
+            'password' => Hash::make('password'),
+            'usertype' => 1, 
+        ]);
+
+        
         $response = $this->get('/users');
 
+        
         $response->assertStatus(200);
+
+        
+        $response->assertViewHas('users');
     }
-    // public function testStore()
-    // {
-    //     $userData = [
-    //         'name' => 'John Doe',
-    //         'email' => 'john@example.com',
-    //         'password' => 'password',
-    //     ];
 
-    //     $response = $this->post('/users', $userData);
+    /**
+     * Test the store method of UserController.
+     */
+    public function testStore()
+    {
+      
+        $userData = [
+            'name' => 'Allali Ali',
+            'email' => 'ali@example.com',
+            'password' => 'password',
+            'usertype' => 1
+        ];
 
-    //     $response->assertStatus(201);
+        
+        $response = $this->post('/users', $userData);
 
-    //     $this->assertDatabaseHas('users', $userData);
-    // }
+        
+        $response->assertStatus(302);
+
+        
+        $this->assertDatabaseHas('users', [
+            'name' => 'Allali Ali',
+            'email' => 'ali@example.com',
+        ]);
+    }
 }
+    
+
